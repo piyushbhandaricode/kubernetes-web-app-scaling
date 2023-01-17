@@ -1,0 +1,15 @@
+{
+    "name": "node-app-image-dev",
+    "version": "1.0.0",
+    "description": "nodejs app image dev",
+    "author": "Piyush Bhandari", "license": "MIT",
+    "main": "app.js",
+    "keywords": [
+        "nodejs",
+        "bootstrap",
+        "express"
+      ],
+      "dependencies": {
+        "express": "^4.16.4"
+      }
+    }
