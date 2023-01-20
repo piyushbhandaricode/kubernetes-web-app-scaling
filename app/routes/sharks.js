@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const shark = require('../controllers/sharks');
 
 router.get('/', function(req, res){
