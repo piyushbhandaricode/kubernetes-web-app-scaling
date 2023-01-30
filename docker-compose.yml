@@ -1,26 +1,25 @@
 version: '3'
 
-services: 
+services:
   nodejs:
     build:
-      context: app
+      context: .
       dockerfile: Dockerfile
     image: nodejs
     container_name: nodejs
     restart: unless-stopped
-    env_file: .env
+    env_file: app/.env
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
       - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=db
       - MONGO_PORT=$MONGO_PORT
-      - MONGO_DB=$MONGO_DB
+      - MONGO_DB=$MONGO_DB 
     ports:
       - "80:8081"
     volumes:
-      type: bind
-        - app : home/app
-        - node_modules : /home/app/node_modules
+      - ./app:/home/app
+      - node_modules:/home/app/node_modules
     networks:
       - app-network
     command: ./wait-for.sh db:27017 -- /home/app/node_modules/.bin/nodemon app.js
@@ -28,14 +27,13 @@ services:
   db:
     image: mongo:4.1.8-xenial
     container_name: db
-    restart: inless-stopped
-    env_file: .env
+    restart: unless-stopped
+    env_file: app/.env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
-    volumes:
-      type: volume
-        - dbdata: /data/db
+    volumes:  
+      - dbdata:/data/db   
     networks:
       - app-network
 
@@ -45,4 +43,4 @@ networks:
 
 volumes:
   dbdata:
-  node_modules:  
+  node_modules: 
