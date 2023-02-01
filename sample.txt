@@ -1,3 +1,0 @@
-sudo docker-compose down --rmi all --volumes --remove-orphans
-
-sudo docker system prune -a
